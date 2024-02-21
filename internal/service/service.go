@@ -12,7 +12,6 @@ type factorialResult struct {
 	isA   bool // true for a, false for b
 }
 
-// CalculateFactorials asynchronously calculates the factorials of a and b, ensuring correct association.
 func CalculateFactorials(a, b int) Result {
 	ch := make(chan factorialResult, 2)
 
