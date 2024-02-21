@@ -8,10 +8,9 @@ import (
 	"github.com/niutingyuan/calculate/internal/handlers"
 )
 
-// This is the main entry point to the application. It sets up the HTTP server and routes using `httprouter` package
 func main() {
-	router := httprouter.New() // Setting up the router using 3rd party package
+	router := httprouter.New()
 	router.POST("/calculate", handlers.CalculateHandler)
 
-	log.Fatal(http.ListenAndServe(":8989", router)) // Setting up the server
+	log.Fatal(http.ListenAndServe(":8989", router))
 }
