@@ -1,3 +1,4 @@
+// handlers package defines the HTTP handlers that parse client requests, call the service layer to perform operations, and return responses to the client.
 package handlers
 
 import (
