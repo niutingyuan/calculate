@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
+	"github.com/niutingyuan/calculate"
 	"github.com/niutingyuan/calculate/internal/service"
 )
 
@@ -19,7 +20,7 @@ type Response struct {
 }
 
 func CalculateHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	var req Request
+	var req calculate.RequestFactorial
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		http.Error(w, `{"error":"Invalid input"}`, http.StatusBadRequest)
 	}
