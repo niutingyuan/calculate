@@ -11,13 +11,13 @@ func CalculateFactorials(a, b int) (factorialA, factorialB *big.Int) {
 	var wg sync.WaitGroup
 	calc := factorial.Calculator{}
 
-	wg.Add(1)
+	wg.Add(2)
+
 	go func() {
 		defer wg.Done()
 		factorialA = calc.Calculate(a)
 	}()
 
-	wg.Add(1)
 	go func() {
 		defer wg.Done()
 		factorialB = calc.Calculate(b)
