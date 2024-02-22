@@ -1,45 +1,28 @@
 package service
 
-import "github.com/niutingyuan/calculate/internal/utils/factorial"
+import (
+	"math/big"
+	"sync"
 
-type Result struct {
-	FactorialA int
-	FactorialB int
-}
+	"github.com/niutingyuan/calculate/internal/utils/factorial"
+)
 
-type factorialResult struct {
-	value int
-	isA   bool // true for a, false for b
-}
+func CalculateFactorials(a, b int) (factorialA, factorialB *big.Int) {
+	var wg sync.WaitGroup
+	calc := factorial.Calculator{}
 
-func CalculateFactorials(a, b int) Result {
-	ch := make(chan factorialResult, 2)
-
-	// Calculate factorial for a
+	wg.Add(1)
 	go func() {
-		ch <- factorialResult{
-			value: factorial.Calculate(a),
-			isA:   true,
-		}
+		defer wg.Done()
+		factorialA = calc.Calculate(a)
 	}()
 
-	// Calculate factorial for b
+	wg.Add(1)
 	go func() {
-		ch <- factorialResult{
-			value: factorial.Calculate(b),
-			isA:   false,
-		}
+		defer wg.Done()
+		factorialB = calc.Calculate(b)
 	}()
 
-	res := Result{}
-	for i := 0; i < 2; i++ {
-		result := <-ch
-		if result.isA {
-			res.FactorialA = result.value
-		} else {
-			res.FactorialB = result.value
-		}
-	}
-
-	return res
+	wg.Wait()
+	return factorialA, factorialB
 }
