@@ -1,6 +1,6 @@
 package service
 
-import "github.com/niutingyuan/calculate/internal/factorial"
+import "github.com/niutingyuan/calculate/internal/utils/factorial"
 
 type Result struct {
 	FactorialA int
