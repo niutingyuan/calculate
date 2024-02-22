@@ -9,26 +9,17 @@ import (
 	"github.com/niutingyuan/calculate/internal/service"
 )
 
-type Request struct {
-	A int `json:"a"`
-	B int `json:"b"`
-}
-
-type Response struct {
-	FactorialA int `json:"a!"`
-	FactorialB int `json:"b!"`
-}
-
 func CalculateHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	var req calculate.RequestFactorial
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		http.Error(w, `{"error":"Invalid input"}`, http.StatusBadRequest)
+		return
 	}
 
-	result := service.CalculateFactorials(req.A, req.B)
-	res := Response{
-		FactorialA: result.FactorialA,
-		FactorialB: result.FactorialB,
+	factorialA, factorialB := service.CalculateFactorials(req.A, req.B)
+	res := calculate.ResponseFactorial{
+		FactorialA: factorialA,
+		FactorialB: factorialB,
 	}
 
 	w.Header().Set("Content-Type", "application/json")
