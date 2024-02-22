@@ -1,8 +1,8 @@
 package factorial
 
-func Calculate(n int) int {
+func calculate(n int) int {
 	if n == 0 {
 		return 1
 	}
-	return n * Calculate(n-1)
+	return n * calculate(n-1)
 }
